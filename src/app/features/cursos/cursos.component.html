@@ -1,0 +1,56 @@
+<div class="container">
+  <h2>Gestión de Cursos</h2>
+
+  <div class="alert alert--success" *ngIf="mensaje">{{ mensaje }}</div>
+  <div class="alert alert--error"   *ngIf="error">{{ error }}</div>
+
+  <!-- Formulario -->
+  <form class="form" [formGroup]="form" (ngSubmit)="guardar()">
+    <h3>{{ editandoId ? 'Editar Curso' : 'Registrar Curso' }}</h3>
+
+    <div class="form__grid">
+      <div class="form__field">
+        <label>Nombre del Curso *</label>
+        <input formControlName="nombre" placeholder="Ej: Matemáticas" />
+        <span class="form__error" *ngIf="campo('nombre')?.invalid && campo('nombre')?.touched">
+          Campo requerido (máx. 100 caracteres).
+        </span>
+      </div>
+    </div>
+
+    <div class="form__actions">
+      <button type="submit" class="btn btn--primary">
+        {{ editandoId ? 'Actualizar' : 'Registrar' }}
+      </button>
+      <button type="button" class="btn btn--secondary" *ngIf="editandoId" (click)="cancelar()">
+        Cancelar
+      </button>
+    </div>
+  </form>
+
+  <!-- Tabla -->
+  <div class="table-wrapper">
+    <p *ngIf="cargando">Cargando cursos...</p>
+    <p *ngIf="!cargando && cursos.length === 0">No hay cursos registrados.</p>
+
+    <table *ngIf="!cargando && cursos.length > 0">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Fecha de Creación</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of cursos">
+          <td>{{ c.nombre_curso }}</td>
+          <td>{{ c.fecha_creacion ? (c.fecha_creacion | date:'dd/MM/yyyy HH:mm') : '—' }}</td>
+          <td class="actions">
+            <button class="btn btn--edit" (click)="editar(c)">Editar</button>
+            <button class="btn btn--delete" (click)="eliminar(c.id_curso)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,116 @@
+<div class="container">
+  <h2>Gestión de Estudiantes</h2>
+
+  <div class="alert alert--success" *ngIf="mensaje">{{ mensaje }}</div>
+  <div class="alert alert--error"   *ngIf="error">{{ error }}</div>
+
+  <!-- Formulario -->
+  <form class="form" [formGroup]="form" (ngSubmit)="guardar()">
+    <h3>{{ editandoId ? 'Editar Estudiante' : 'Registrar Estudiante' }}</h3>
+
+    <div class="form__grid">
+      <div class="form__field">
+        <label>Cédula *</label>
+        <input formControlName="cedula" placeholder="Ej: 1234567890" />
+        <span class="form__error" *ngIf="campo('cedula')?.invalid && campo('cedula')?.touched">
+          Campo requerido (máx. 20 caracteres).
+        </span>
+      </div>
+
+      <div class="form__field">
+        <label>Nombre *</label>
+        <input formControlName="nombre" placeholder="Ej: Juan" />
+        <span class="form__error" *ngIf="campo('nombre')?.invalid && campo('nombre')?.touched">
+          Campo requerido (máx. 100 caracteres).
+        </span>
+      </div>
+
+      <div class="form__field">
+        <label>Apellido *</label>
+        <input formControlName="apellido" placeholder="Ej: Pérez" />
+        <span class="form__error" *ngIf="campo('apellido')?.invalid && campo('apellido')?.touched">
+          Campo requerido (máx. 100 caracteres).
+        </span>
+      </div>
+
+      <div class="form__field">
+        <label>Email *</label>
+        <input formControlName="email" type="email" placeholder="Ej: juan@email.com" />
+        <span class="form__error" *ngIf="campo('email')?.invalid && campo('email')?.touched">
+          Email válido requerido.
+        </span>
+      </div>
+
+      <div class="form__field">
+        <label>Sexo *</label>
+        <select formControlName="sexo">
+          <option value="">Seleccionar...</option>
+          <option value="M">Masculino</option>
+          <option value="F">Femenino</option>
+          <option value="Otro">Otro</option>
+        </select>
+        <span class="form__error" *ngIf="campo('sexo')?.invalid && campo('sexo')?.touched">
+          Campo requerido.
+        </span>
+      </div>
+
+      <div class="form__field">
+        <label>Fecha de Nacimiento *</label>
+        <input formControlName="fecha_nacimiento" type="date" />
+        <span class="form__error" *ngIf="campo('fecha_nacimiento')?.invalid && campo('fecha_nacimiento')?.touched">
+          Campo requerido.
+        </span>
+      </div>
+
+      <div class="form__field">
+        <label>Celular</label>
+        <input formControlName="no_celular" placeholder="Ej: 3001234567" />
+      </div>
+    </div>
+
+    <div class="form__actions">
+      <button type="submit" class="btn btn--primary">
+        {{ editandoId ? 'Actualizar' : 'Registrar' }}
+      </button>
+      <button type="button" class="btn btn--secondary" *ngIf="editandoId" (click)="cancelar()">
+        Cancelar
+      </button>
+    </div>
+  </form>
+
+  <!-- Tabla -->
+  <div class="table-wrapper">
+    <p *ngIf="cargando">Cargando estudiantes...</p>
+    <p *ngIf="!cargando && estudiantes.length === 0">No hay estudiantes registrados.</p>
+
+    <table *ngIf="!cargando && estudiantes.length > 0">
+      <thead>
+        <tr>
+          <th>Cédula</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Email</th>
+          <th>Sexo</th>
+          <th>Nacimiento</th>
+          <th>Celular</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let e of estudiantes">
+          <td>{{ e.cedula }}</td>
+          <td>{{ e.nombre }}</td>
+          <td>{{ e.apellido }}</td>
+          <td>{{ e.email }}</td>
+          <td>{{ e.sexo }}</td>
+          <td>{{ e.fecha_nacimiento }}</td>
+          <td>{{ e.no_celular || '—' }}</td>
+          <td class="actions">
+            <button class="btn btn--edit" (click)="editar(e)">Editar</button>
+            <button class="btn btn--delete" (click)="eliminar(e.id_estudiante)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
