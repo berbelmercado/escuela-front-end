@@ -1,0 +1,86 @@
+<div class="container">
+  <h2>Gestion de Inscripciones</h2>
+
+  <div class="alert alert--success" *ngIf="mensaje">{{ mensaje }}</div>
+  <div class="alert alert--error" *ngIf="error">{{ error }}</div>
+
+  <form class="form" [formGroup]="form" (ngSubmit)="guardar()">
+    <h3>{{ editandoId !== null ? 'Editar Inscripcion' : 'Registrar Inscripcion' }}</h3>
+
+    <div class="form__grid">
+      <div class="form__field">
+        <label>Curso *</label>
+        <select formControlName="id_curso">
+          <option value="">Seleccionar...</option>
+          <option *ngFor="let curso of cursos" [value]="curso.id_curso">{{ curso.nombre_curso }}</option>
+        </select>
+        <span class="form__error" *ngIf="campo('id_curso')?.invalid && campo('id_curso')?.touched">Campo requerido.</span>
+      </div>
+      <div class="form__field">
+        <label>Asignatura *</label>
+        <select formControlName="id_asignatura">
+          <option value="">Seleccionar...</option>
+          <option *ngFor="let asignatura of asignaturas" [value]="asignatura.id_asignatura">{{ asignatura.nombre_asignatura }}</option>
+        </select>
+        <span class="form__error" *ngIf="campo('id_asignatura')?.invalid && campo('id_asignatura')?.touched">Campo requerido.</span>
+      </div>
+      <div class="form__field">
+        <label>Estudiante *</label>
+        <select formControlName="id_estudiante">
+          <option value="">Seleccionar...</option>
+          <option *ngFor="let estudiante of estudiantes" [value]="estudiante.id_estudiante">{{ estudiante.nombre }} {{ estudiante.apellido }}</option>
+        </select>
+        <span class="form__error" *ngIf="campo('id_estudiante')?.invalid && campo('id_estudiante')?.touched">Campo requerido.</span>
+      </div>
+      <div class="form__field">
+        <label>Profesor *</label>
+        <select formControlName="id_profesor">
+          <option value="">Seleccionar...</option>
+          <option *ngFor="let profesor of profesores" [value]="profesor.id_profesor">{{ profesor.nombre }} {{ profesor.apellido }}</option>
+        </select>
+        <span class="form__error" *ngIf="campo('id_profesor')?.invalid && campo('id_profesor')?.touched">Campo requerido.</span>
+      </div>
+      <div class="form__field">
+        <label>Periodo *</label>
+        <input formControlName="periodo" placeholder="2026-1" />
+        <span class="form__error" *ngIf="campo('periodo')?.invalid && campo('periodo')?.touched">Campo requerido.</span>
+      </div>
+    </div>
+
+    <div class="form__actions">
+      <button type="submit" class="btn btn--primary">{{ editandoId !== null ? 'Actualizar' : 'Registrar' }}</button>
+      <button type="button" class="btn btn--secondary" *ngIf="editandoId !== null" (click)="cancelar()">Cancelar</button>
+    </div>
+  </form>
+
+  <div class="table-wrapper">
+    <p *ngIf="cargando">Cargando inscripciones...</p>
+    <p *ngIf="!cargando && inscripciones.length === 0">No hay inscripciones registradas.</p>
+
+    <table *ngIf="!cargando && inscripciones.length > 0">
+      <thead>
+        <tr>
+          <th>Curso</th>
+          <th>Asignatura</th>
+          <th>Estudiante</th>
+          <th>Profesor</th>
+          <th>Periodo</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let i of inscripciones">
+          <td>{{ nombreCurso(i.id_curso) }}</td>
+          <td>{{ nombreAsignatura(i.id_asignatura) }}</td>
+          <td>{{ nombreEstudiante(i.id_estudiante) }}</td>
+          <td>{{ nombreProfesor(i.id_profesor) }}</td>
+          <td>{{ i.periodo }}</td>
+          <td class="actions">
+            <button class="btn btn--edit" (click)="editar(i)">Editar</button>
+            <button class="btn btn--delete" (click)="eliminar(i.id_inscripcion)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
