@@ -1,0 +1,22 @@
+<main class="home">
+  <section class="hero">
+    <p class="eyebrow">Punto de entrada de la aplicacion</p>
+    <h1>Entrada principal</h1>
+    <p class="summary">
+      Desde aqui se accede a todos los features de la aplicacion. Selecciona un modulo para empezar a trabajar.
+    </p>
+  </section>
+
+  <section class="grid" aria-label="Accesos principales">
+    <a
+      class="tile"
+      *ngFor="let link of links"
+      [routerLink]="link.path"
+      [ngClass]="link.accent"
+    >
+      <span class="tile__title">{{ link.title }}</span>
+      <span class="tile__desc">{{ link.description }}</span>
+      <span class="tile__action">Abrir modulo</span>
+    </a>
+  </section>
+</main>

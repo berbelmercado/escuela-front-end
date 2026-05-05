@@ -1,0 +1,96 @@
+:host {
+  display: block;
+}
+
+.home {
+  min-height: 100vh;
+  padding: 3rem 1rem 4rem;
+  background:
+    radial-gradient(circle at top left, rgba(53, 110, 246, 0.18), transparent 28%),
+    radial-gradient(circle at right 20%, rgba(18, 179, 136, 0.15), transparent 24%),
+    linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+  color: #132238;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+.hero {
+  max-width: 1100px;
+  margin: 0 auto 2rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.78rem;
+  color: #51627a;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1.05;
+}
+
+.summary {
+  max-width: 42rem;
+  margin: 0.9rem 0 0;
+  font-size: 1.05rem;
+  color: #475569;
+}
+
+.grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  min-height: 180px;
+  padding: 1.1rem;
+  border-radius: 10px;
+  text-decoration: none;
+  color: inherit;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(120, 138, 166, 0.22);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(8px);
+  transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+}
+
+.tile:hover {
+  transform: translateY(-2px);
+  border-color: rgba(53, 110, 246, 0.35);
+  box-shadow: 0 22px 48px rgba(15, 23, 42, 0.12);
+}
+
+.tile__title {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.tile__desc {
+  flex: 1;
+  color: #52617a;
+  line-height: 1.45;
+}
+
+.tile__action {
+  align-self: flex-start;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.accent-blue .tile__action { color: #2563eb; }
+.accent-gold .tile__action { color: #b45309; }
+.accent-teal .tile__action { color: #0f766e; }
+.accent-coral .tile__action { color: #c2410c; }
+.accent-green .tile__action { color: #15803d; }
+.accent-violet .tile__action { color: #7c3aed; }
+.accent-red .tile__action { color: #b91c1c; }
