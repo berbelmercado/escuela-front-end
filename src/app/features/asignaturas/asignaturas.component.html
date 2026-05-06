@@ -1,0 +1,69 @@
+<div class="container">
+  <h2>Gestion de Asignaturas</h2>
+
+  <div class="alert alert--success" *ngIf="mensaje">{{ mensaje }}</div>
+  <div class="alert alert--error" *ngIf="error">{{ error }}</div>
+
+  <form class="form" [formGroup]="form" (ngSubmit)="guardar()">
+    <h3>{{ editandoId !== null ? 'Editar Asignatura' : 'Registrar Asignatura' }}</h3>
+
+    <div class="form__grid">
+      <div class="form__field">
+        <label>Nombre *</label>
+        <input formControlName="nombre_asignatura" />
+        <span class="form__error" *ngIf="campo('nombre_asignatura')?.invalid && campo('nombre_asignatura')?.touched">Campo requerido.</span>
+      </div>
+      <div class="form__field">
+        <label>Horas semanales *</label>
+        <input formControlName="horas_semanales" type="number" min="1" />
+        <span class="form__error" *ngIf="campo('horas_semanales')?.invalid && campo('horas_semanales')?.touched">Valor requerido.</span>
+      </div>
+      <div class="form__field">
+        <label>Modalidad *</label>
+        <input formControlName="modalidad" placeholder="Presencial, Virtual..." />
+        <span class="form__error" *ngIf="campo('modalidad')?.invalid && campo('modalidad')?.touched">Campo requerido.</span>
+      </div>
+      <div class="form__field">
+        <label>Estado *</label>
+        <select formControlName="estado">
+          <option [ngValue]="true">Activa</option>
+          <option [ngValue]="false">Inactiva</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form__actions">
+      <button type="submit" class="btn btn--primary">{{ editandoId !== null ? 'Actualizar' : 'Registrar' }}</button>
+      <button type="button" class="btn btn--secondary" *ngIf="editandoId !== null" (click)="cancelar()">Cancelar</button>
+    </div>
+  </form>
+
+  <div class="table-wrapper">
+    <p *ngIf="cargando">Cargando asignaturas...</p>
+    <p *ngIf="!cargando && asignaturas.length === 0">No hay asignaturas registradas.</p>
+
+    <table *ngIf="!cargando && asignaturas.length > 0">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Horas</th>
+          <th>Modalidad</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let a of asignaturas">
+          <td>{{ a.nombre_asignatura }}</td>
+          <td>{{ a.horas_semanales }}</td>
+          <td>{{ a.modalidad }}</td>
+          <td>{{ a.estado ? 'Activa' : 'Inactiva' }}</td>
+          <td class="actions">
+            <button class="btn btn--edit" (click)="editar(a)">Editar</button>
+            <button class="btn btn--delete" (click)="eliminar(a.id_asignatura)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

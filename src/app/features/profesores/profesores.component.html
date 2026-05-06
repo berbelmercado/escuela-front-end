@@ -1,0 +1,79 @@
+<div class="container">
+  <h2>Gestion de Profesores</h2>
+
+  <div class="alert alert--success" *ngIf="mensaje">{{ mensaje }}</div>
+  <div class="alert alert--error" *ngIf="error">{{ error }}</div>
+
+  <form class="form" [formGroup]="form" (ngSubmit)="guardar()">
+    <h3>{{ editandoId ? 'Editar Profesor' : 'Registrar Profesor' }}</h3>
+
+    <div class="form__grid">
+      <div class="form__field">
+        <label>Cedula *</label>
+        <input formControlName="cedula" />
+        <span class="form__error" *ngIf="campo('cedula')?.invalid && campo('cedula')?.touched">Campo requerido.</span>
+      </div>
+      <div class="form__field">
+        <label>Nombre *</label>
+        <input formControlName="nombre" />
+        <span class="form__error" *ngIf="campo('nombre')?.invalid && campo('nombre')?.touched">Campo requerido.</span>
+      </div>
+      <div class="form__field">
+        <label>Apellido *</label>
+        <input formControlName="apellido" />
+        <span class="form__error" *ngIf="campo('apellido')?.invalid && campo('apellido')?.touched">Campo requerido.</span>
+      </div>
+      <div class="form__field">
+        <label>Sexo *</label>
+        <select formControlName="sexo">
+          <option value="">Seleccionar...</option>
+          <option value="M">Masculino</option>
+          <option value="F">Femenino</option>
+          <option value="Otro">Otro</option>
+        </select>
+        <span class="form__error" *ngIf="campo('sexo')?.invalid && campo('sexo')?.touched">Campo requerido.</span>
+      </div>
+      <div class="form__field">
+        <label>Edad *</label>
+        <input formControlName="edad" type="number" min="0" />
+        <span class="form__error" *ngIf="campo('edad')?.invalid && campo('edad')?.touched">Edad valida requerida.</span>
+      </div>
+    </div>
+
+    <div class="form__actions">
+      <button type="submit" class="btn btn--primary">{{ editandoId ? 'Actualizar' : 'Registrar' }}</button>
+      <button type="button" class="btn btn--secondary" *ngIf="editandoId" (click)="cancelar()">Cancelar</button>
+    </div>
+  </form>
+
+  <div class="table-wrapper">
+    <p *ngIf="cargando">Cargando profesores...</p>
+    <p *ngIf="!cargando && profesores.length === 0">No hay profesores registrados.</p>
+
+    <table *ngIf="!cargando && profesores.length > 0">
+      <thead>
+        <tr>
+          <th>Cedula</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Sexo</th>
+          <th>Edad</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of profesores">
+          <td>{{ p.cedula }}</td>
+          <td>{{ p.nombre }}</td>
+          <td>{{ p.apellido }}</td>
+          <td>{{ p.sexo }}</td>
+          <td>{{ p.edad }}</td>
+          <td class="actions">
+            <button class="btn btn--edit" (click)="editar(p)">Editar</button>
+            <button class="btn btn--delete" (click)="eliminar(p.id_profesor)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
