@@ -1,59 +1,57 @@
-# MiApp
+# Escuela Front-End
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.7.
+Este proyecto es una aplicación web desarrollada con TypeScript, HTML y SCSS, que corresponde a la interfaz de usuario del sistema "Escuela".
 
-## Development server
+## Tecnologías principales
 
-To start a local development server, run:
+- **TypeScript** (60.9%): Para una programación más robusta y mantenible, agregando tipado estático sobre JavaScript.
+- **HTML** (23.2%): Estructura semántica de las páginas.
+- **SCSS** (15.9%): Estilos avanzados y organización modular de CSS.
 
-```bash
-ng serve
+## Pre-requisitos
+
+Para implementar y ejecutar el proyecto localmente necesitas:
+
+- [Node.js](https://nodejs.org/) (recomendado v16+)
+- [npm](https://www.npmjs.com/) o [yarn](https://yarnpkg.com/)
+
+## Instalación y configuración
+
+Sigue estos pasos:
+
+1. **Clona el repositorio**
+   ```sh
+   git clone https://github.com/berbelmercado/escuela-front-end.git
+   cd escuela-front-end
+   ```
+
+2. **Instala dependencias**
+   ```sh
+   npm install
+   # o si prefieres yarn:
+   # yarn install
+   ```
+
+3. **Ejecuta en modo desarrollo**
+   ```sh
+   npm start
+   # o
+   # yarn start
+   o ng serve
+   ```
+   Esto debería levantar un servidor local, normalmente en [http://localhost:3000](http://localhost:3000) o [http://localhost:4200](http://localhost:4200) según la configuración (verifica la consola para la URL exacta).
+
+
+## Estructura típica de carpetas
+
+Aunque la organización puede variar, un front-end moderno suele tener algo similar a:
+
+```
+src/
+├── app/          
+    ├── core
+        └── Services #Aquí se encontrarán todos los servicios
+    ├──features     # Aquí se encuentran las funcionalidades 
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Video explicación: 
